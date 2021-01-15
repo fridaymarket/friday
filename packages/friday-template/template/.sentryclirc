@@ -1,0 +1,9 @@
+[defaults]
+url = [sentry-host]
+org = [org]
+project = [project] 
+
+[auth]
+token = [token] 
+[http]
+verify_ssl=false

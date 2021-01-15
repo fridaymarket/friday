@@ -1,0 +1,61 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Overview/Sentry" />
+
+# Sentry
+
+因为config配置了<code>sentry</code>的开关，所有我们可以在<code>new Friday(opts)</code>的时候传入钩子选择是否开启<code>sentry</code>即可
+
+
+## 配置sentry cli
+
+<code>@friday/template</code>内置了sentry的生成器，配置一个新的项目的时候，
+在sentry平台获取新的<code>project name</code> 之后 修改.sentryclirc
+
+在config.dev.ts中配置sentry
+```css dark
+config.tsx
+
+{
+    ...
+    sentry: {
+		dsn: 'dns',
+		environment: process.env.NODE_ENV
+	}
+}
+
+```
+
+配置sentry的鉴权信息，由于sentry需要在webpack build用到该配置，所以无法管理到config.ts中
+```css dark
+.sentryclirc 
+
+[defaults]
+url = `https://sentry.xxxx.com.cn/`
+org = yoyi-fe
+project = [project name]
+
+[auth]
+token = 'xxxxxxxxxxxxxxxxxxxxx'
+[http]
+verify_ssl=false
+```
+
+## 将sentry集成到friday
+
+```css dark
+import sentryLoader from './sentryLoader'
+const app = new Friday({
+    onStarted(config) {
+        const { sentry } = config
+        sentry && sentryLoader(sentry)
+    }
+})
+
+```
+
+
+
+
+
+

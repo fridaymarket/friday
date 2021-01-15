@@ -1,0 +1,26 @@
+{
+	"name": "friday-helpers",
+	"version": "0.0.1",
+	"main": "lib/index.js",
+	"module": "lib/index.js",
+	"types": "lib/index.d.ts",
+	"license": "MIT",
+	"scripts": {
+		"tsc": "tsc -b --watch"
+	},
+	"dependencies": {
+		"friday-immer": "^0.0.1",
+		"invariant": "^2.2.4",
+		"is-plain-object": "^3.0.1",
+		"lodash.debounce": "^4.0.8",
+		"lodash.isequal": "^4.5.0",
+		"lodash.throttle": "^4.1.1"
+	},
+	"peerDependencies": {
+		"react": "^16.13.1"
+	},
+	"files": [
+		"lib"
+	],
+	"gitHead": "9ec1eb2357e95dd921d8365240dc5ca1c99ace86"
+}

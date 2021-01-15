@@ -1,0 +1,16 @@
+{
+	"name": "friday-micro-webpack-plugin",
+	"version": "0.0.1",
+	"main": "lib/index.js",
+	"types": "lib/index.d.ts",
+	"license": "MIT",
+	"scripts": {
+		"tsc": "tsc -b --watch"
+	},
+	"files": [
+		"lib"
+	],
+	"dependencies": {
+		"script-ext-html-webpack-plugin": "^2.1.4"
+	}
+}

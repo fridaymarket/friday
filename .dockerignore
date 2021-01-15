@@ -1,0 +1,14 @@
+
+.DS_Store
+*.log
+/coverage
+/.changelog
+/node_modules
+node_modules
+/packages/**/node_modules
+/example/**/node_modules
+/docs/node_modules
+/lerna-debug.log
+tsconfig.tsbuildinfo
+# docs/storybook-static
+/packages/**/tsconfig.tsbuildinfo

@@ -1,0 +1,13 @@
+{
+	"extends": "../tsconfig.base.json",
+	"compilerOptions": {
+		"rootDir": "src",
+		"outDir": "lib",
+		"jsx": "react"
+	},
+	"references": [
+		{
+			"path": "../friday-helpers"
+		}
+	]
+}

@@ -1,0 +1,91 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Documentation/Friday Template" />
+
+# @friday/template
+
+ @friday/cra-template-library 为`friday`的项目模版仓库，基于`create-react-app(下方统一称为cra)`研发，
+整个`webpack`配置依赖于`cra`,因为集成了微服务等，所有使用了`customize-cra`重写了部分`cra`配置.
+
+重写部分如下：
+
+** Tips ** : `@friday/micro-webpack-plugin`封装了部分通用配置
+
+```css dark
+
+const {
+	override,
+	addWebpackAlias,
+	addWebpackResolve,
+	disableEsLint,
+	setWebpackOptimizationSplitChunks,
+	overrideDevServer,
+	addLessLoader,
+	fixBabelImports,
+	addWebpackPlugin
+} = require('customize-cra')
+
+const {
+	devServerCorsOrHeader,
+	OverrideMicroOutPut,
+	addEntryAttribute
+} = require('@friday/micro-webpack-plugin')
+
+const path = require('path')
+
+const packageName = require('./package.json').name
+
+module.exports = {
+	webpack: override(
+		// 禁止eslint
+		disableEsLint(),
+		// 抽出公共模块
+		setWebpackOptimizationSplitChunks({
+			chunks: "all",
+			cacheGroups: {
+				vendor: {
+					// 使用正则匹配所有加载路径为 node_modules 路径下的模块
+					test: /[\\/]node_modules[\\/]/,
+					name: 'vendor'
+				}
+			}
+		}),
+		// 别名添加， tsconfig.json也需要添加该别名。
+		addWebpackAlias({
+			'src': path.resolve(__dirname, './src'),
+		}),
+		// 忽略后缀
+		addWebpackResolve({
+			"extensions": [".ts", ".tsx", '.js', 'less']
+		}),
+		// 按需加载
+		fixBabelImports('import', {
+			libraryName: 'antd',
+			libraryDirectory: 'es',
+			style: true,
+		}),
+		// 按需加载
+		fixBabelImports('lodash', {
+			libraryDirectory: '',
+			camel2DashComponentName: false
+		}),
+		// less lader
+		addLessLoader({
+			javascriptEnabled: true,
+		}),
+		// 微服务暴露出口
+		OverrideMicroOutPut(packageName),
+		// 微服务标记出口文件
+		addWebpackPlugin(
+			addEntryAttribute()
+		)
+	),
+	devServer: overrideDevServer(
+		// 添加cors
+		devServerCorsOrHeader(),
+	)
+}
+
+
+```
+

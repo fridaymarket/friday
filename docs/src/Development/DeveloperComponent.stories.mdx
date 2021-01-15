@@ -1,0 +1,88 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+
+<Meta title="Components/如何开发一个组件？" />
+
+# 如何开发一个组件
+
+> 本篇待完善
+
+## 注意事项
+
+- 组件，以及文档的文件命名，需要使用「小写」+「-」的形式。
+
+## 组件
+
+### 开发
+
+在 `packages/friday-components/src` 目录下，新增一个组件的目录，类似 `better-input-number` 组件。目录名需要保持**小写**。
+
+##### 设置样式前缀
+
+需要增加 `friday` 前缀，组件库前缀不应该与 `antd` 重名。
+
+```css dark
+@import '../../style/index.less';
+
+.@{friday-prefix}-input-number{
+    width: 100px
+}
+
+```
+
+##### 使用 `ant` 的 `less` 变量
+
+引入变量，使用即可
+
+```css dark
+@import '~antd/es/style/themes/default.less';
+...
+
+.active {
+    color: @primary-color;
+}
+```
+### 文档
+
+#### 开发文档
+
+文档文件需要保持 `.stories.mdx` 的后缀, 在组件的 `example` 文件夹中添加 `.stories.mdx` 文件开发文档，并运行命令查看效果
+
+```javscript dark
+import { Meta, Story, Props ,Preview } from '@storybook/addon-docs/blocks'
+import Test from './index'
+
+<Meta title="Components/测试 Test" component={Test} />
+
+
+## 测试
+
+<Preview>
+    <Story name='default'>
+		  <Test className='test' />
+    </Story>
+</Preview>
+
+## Api 
+
+<Props of={Test} />
+```
+
+#### 开启预览
+
+```javascript dark
+yarn dev:storybook
+```
+
+
+
+### 测试
+
+测试文件需要保持 `.test.tsx` 的后缀。相关技术栈以及文档：
+
+- [Jest](https://jestjs.io/)：JavaScript 测试框架。
+- [@testing-library/react](https://testing-library.com/docs/react-testing-library/intro)：将 React 组件转化成 Dom 节点来测试，而不是渲染的 React 组件的实例，可以当做是 [Enzyme](http://airbnb.io/enzyme/) 的替代。编写测试脚本，并保证希望测试到的地方已经覆盖。
+
+
+
+

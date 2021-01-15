@@ -1,0 +1,22 @@
+{
+	"name": "friday-router",
+	"version": "0.0.1",
+	"main": "lib/index.js",
+	"types": "lib/index.d.ts",
+	"license": "MIT",
+	"scripts": {
+		"tsc": "tsc -b --watch"
+	},
+	"dependencies": {
+		"@types/react-router-dom": "^5.1.5",
+		"query-string": "^6.13.7",
+		"react-router-dom": "^5.2.0"
+	},
+	"peerDependencies": {
+		"react": "^16.13.1"
+	},
+	"files": [
+		"lib"
+	],
+	"gitHead": "9102d94ceef59126140da3027df2669a37e88dd9"
+}

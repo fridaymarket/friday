@@ -1,0 +1,21 @@
+{
+	"name": "friday-micro",
+	"version": "0.0.1",
+	"main": "lib/index.js",
+	"types": "lib/index.d.ts",
+	"license": "MIT",
+	"scripts": {
+		"tsc": "tsc -b --watch"
+	},
+	"dependencies": {
+		"qiankun": "^2.0.16"
+	},
+	"peerDependencies": {
+		"react": "^16.13.1"
+	},
+	"files": [
+		"lib",
+		"public-path.js"
+	],
+	"gitHead": "9102d94ceef59126140da3027df2669a37e88dd9"
+}

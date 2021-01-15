@@ -1,0 +1,26 @@
+{
+	"name": "friday-async",
+	"version": "0.0.1",
+	"main": "lib/index.js",
+	"types": "lib/index.d.ts",
+	"license": "MIT",
+	"scripts": {
+		"tsc": "tsc -b",
+		"watch": "tsc -b --watch"
+	},
+	"dependencies": {
+		"axios": "^0.19.2",
+		"friday-core": "^0.0.1",
+		"friday-helpers": "^0.0.1",
+		"invariant": "^2.2.4",
+		"swr": "^0.3.8",
+		"warning": "^4.0.3"
+	},
+	"peerDependencies": {
+		"react": "^16.13.1"
+	},
+	"files": [
+		"lib"
+	],
+	"gitHead": "9ee2f7195ae3efc373adcdf8fac134b95626534b"
+}

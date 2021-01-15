@@ -1,0 +1,25 @@
+{
+	"extends": "../tsconfig.base.json",
+	"compilerOptions": {
+		"outDir": "./lib",
+		"rootDir": "./src",
+		"jsx": "react"
+	},
+	"references": [
+		{
+			"path": "../friday-helpers"
+		},
+		{
+			"path": "../friday-immer"
+		},
+		{
+			"path": "../friday-async"
+		},
+		{
+			"path": "../friday-router"
+		},
+		{
+			"path": "../friday-micro"
+		}
+	]
+}

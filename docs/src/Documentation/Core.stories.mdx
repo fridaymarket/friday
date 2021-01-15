@@ -1,0 +1,101 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Documentation/Friday Core" />
+
+# @friday/core
+
+## <code>app = Friday(opts)</code>
+创建应用，返回 Friday 实例
+
+opts包含:
+
+- <code>onInjectConfigBefore(){}</code> 调用injectConfig之前执行
+- <code>onInjectConfigAfter(config){}</code> 调用injectConfig之后执行, config为当前匹配的config
+- <code>onInjectRouterAfter(config){}</code> 调用injectRouters之后执行, config为当前匹配的config
+- <code>onStarted(config){}</code> 调用start之后执行, config为当前匹配的config
+
+
+## <code>app.injectConfigurations(configurations: IConfiguration[])</code>
+
+配置项目`configurations, whiteHosts`中为匹配目标，多个`configuration`被匹配，将取第一个
+```css dark
+interface IConfiguration {
+	whiteHosts: string[]
+	publicUrl: {
+		[x: string]: any
+	}
+	router?: {
+		baseName: string
+	},
+	sentry?: boolean
+}
+```
+
+
+## <code>configResult = useConfiguration()</code> or <code> getConfiguration()</code>
+
+<code>configResult</code> 与注入的configuration有所不同，多了两个属性:
+
+```css dark
+interface IResponseConfiguration extends IConfiguration {
+
+	// 传入router.baseName后，暴露的history
+	history: History
+
+	// 当前执行环境
+	NODE_ENV: string
+}
+
+```
+`@friday/core`支持不同方式获取configuration
+`useConfiguration` 在react组件内使用，而`getConfiguration()`可以在非react组件内使用
+
+### `app.use(middleware: IMiddleware)`
+`friday`支持中间件，通过中间件结构部分业务，目前friday提供了部分封装好的中间件
+
+```css dark 
+
+import { GlobalState_middleware } from '@friday/core'
+
+const {middleware, useGlobalContext } = GlobalState_middleware({userInfo: { name: 'friday' }})
+
+app.use(middleware)
+
+```
+
+通过中间件集成的业务将是`injectRouter()`的上一层
+
+
+## <code>app.injectRouters(Router: React.FC)</code>
+配置项目的组件入口，Router如下：
+```css dark
+const App = ({ history }) => {
+  return (
+    <Router history={history}>
+      <Switch>
+        <Route path='/' component={Home} />
+      </Switch>
+    </Router>
+  )
+}
+
+export default App
+
+app.injectRouters(App)
+```
+
+## <code> microLsifecycle= app.start(container: string)</code>
+
+启动项目,container为一个DOM元素的ID
+
+microLsifecycle 为项目的微服务暴露函数，在微服务的子应用应该将其暴露出来，包含以下函数。
+
+- bootstrap 
+- mount
+- unmount
+- render
+
+
+
+
+

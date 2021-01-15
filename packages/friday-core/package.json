@@ -1,0 +1,28 @@
+{
+	"name": "friday-core",
+	"version": "0.0.1",
+	"main": "lib/index.js",
+	"types": "lib/index.d.ts",
+	"license": "MIT",
+	"scripts": {
+		"tsc": "tsc -b",
+		"watch": "tsc -b --watch"
+	},
+	"dependencies": {
+		"@types/warning": "^3.0.0",
+		"compose-function": "^3.0.3",
+		"friday-helpers": "^0.0.1",
+		"friday-immer": "^0.0.1",
+		"friday-router": "^0.0.1",
+		"invariant": "^2.2.4",
+		"qiankun": "^2.0.16",
+		"warning": "^4.0.3"
+	},
+	"peerDependencies": {
+		"react": "^16.13.1"
+	},
+	"files": [
+		"lib"
+	],
+	"gitHead": "9102d94ceef59126140da3027df2669a37e88dd9"
+}

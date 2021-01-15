@@ -1,0 +1,77 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Overview/Microservices" />
+
+# Microservices
+
+Friday 在`@friday/micro`内置了微服务，基于qiankun。
+
+
+## 配置一个微服务
+
+### master 
+
+```css dark
+import micro from '@friday/micro'
+
+micro.registerMicroApps([{
+  // slave name
+  name: 'slave-project', // app name registered
+  // slave的远端地址
+  entry: '//localhost:3001',
+  // slave 服务的dom地址
+  container: '#subapp-viewport',
+  // 触发这个slave
+  activeRule: '/react16',
+}])
+
+// 启动微服务， 这个start和 app.start不同， micro.start 在start之后，可以选择场景触发。
+micro.start()
+
+```
+
+###  slave
+
+slave 只需要将服务接口暴露出来即可。webpack配置@friday/template 已经配置好，无需修改
+
+```css dark
+
+import Friday from '@friday/core'
+// 微服务中的slave 需要添加该文件在entry 入口上方，用来添加静态资源地址
+import '@friday/micro/lib/public-path'
+
+const lifecycle = app.start('#root')
+
+export const bootstrap = lifecycle.bootstrap
+
+export const mount = lifecycle.mount
+
+export const unmount = lifecycle.unmount
+
+```
+
+### slave webpack 
+
+在`@friday/template`中的`config-override.js`中可以看到下方三个配置项，分别功能为：
+
+- `devServerCorsOrHeader` 添加cors，在开发环境中进行跨域
+- `OverrideMicroOutPut`  暴露微服务出口
+- `addEntryAttribute` 微服务标记出口文件
+
+```css dark
+
+const { 
+	devServerCorsOrHeader, 
+	OverrideMicroOutPut, 
+	addEntryAttribute  
+} = require('@friday/micro-webpack-plugin')
+
+
+```
+
+
+
+
+
+
+

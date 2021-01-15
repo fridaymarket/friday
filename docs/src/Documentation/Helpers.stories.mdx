@@ -1,0 +1,162 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Documentation/Friday Helpers" />
+
+# @friday/helpers
+---
+`friday/helpers`是friday框架的工具库。
+
+#### 引入
+```css dark
+import { arrayEqual } from '@friday/helpers'
+```
+
+#### 按需加载
+默认支持基于 ES modules 的 tree shaking， 如果你在开发环境的控制台看到下面的提示，那么你可能还在使用 webpack@1.x 或者 tree shaking 失效，请升级或检查相关配置。
+```css dark
+You are using a whole package of antd, please use https://www.npmjs.com/package/babel-plugin-import to reduce app bundle size.
+```
+
+## arrayEqual(array1: any[], array2: any[])
+对比两个数组是否相同，可用`isEqual`替代
+
+Arguments
+ - `array1` (Array): The array to process.
+ - `array2` (Array): The array to process.
+Returns
+ - boolean
+```css dark
+arrayEqual([1], [1])
+// => true
+```
+
+## createContext(initialState: object)
+快速创建react context
+
+Arguments
+ - `initialState` (object): 初始化值
+
+Returns
+ - `Context`  (React.Context)
+ - `Provider({value})` (function), Provider是个函数接收value将会和initialState进行meger
+
+ Arguments:
+   - value(object): default {}
+ - `useContextProvider()` 
+ 
+ Returns:
+   - reset 重置
+   - state  initialState与value的初始值
+   - dispatch(Action| Action[]) 分发器, dispatch接收action或者批量action，action的接口是:
+   ```
+	export interface Action<T> {
+		type: T,
+		value: any
+	}
+   ```
+
+
+```css dark
+import { createContext } from '@friday/helper'
+
+const { Provider,useContextProvider  } = createContext({test: 1})
+
+const ReactApp = () => {
+	return (
+		<Provider>
+			<APP/>
+		</Provider>
+	)
+}
+
+const APP = () => {
+	const { state, dispatch } = useContextProvider()
+
+	const updateState = () => {
+		dispatch({type: 'test', value: 2})
+	}
+	return (
+		<>
+			<div>{state}</div>
+			<Button onClick={updateState}>updateState</Button>
+		</>
+	)
+}
+
+```
+
+## debounce(func, [wait=0], [options={}])
+常规debounce用法, 引用自`lodash.debounce`
+
+## throttle(func, [wait=0], [options={}])
+常规throttle用法, 引用自`lodash.throttle`
+
+## httpDownload(response, name)
+
+Arguments
+ - `response` (blob): axios response, 必须是个blob
+ - `name` (string): 下载的文件名称，需要后缀
+
+```css dark
+	const response = axios(url, {responseType: 'blob'})
+
+	httpDownload(response, '文档.xlsx')
+```
+
+
+## elementDownload(url, name)
+
+Arguments
+ - `url` download url
+ - `name` (string): 下载的文件名称，需要后缀
+
+```css dark
+	httpDownload(url, '文档.xlsx')
+```
+
+## effectiveObject(target: object)
+是否是空对象
+
+```css dark
+	effectiveObject({})
+	// false 
+	effectiveObject({test: 1})
+	// true
+```
+
+## noop
+空函数
+
+## isArray(arg: any)： boolean
+是否是数组
+
+## isFunction(arg: any)： boolean
+是否是方法
+
+## isObject(arg: any)： boolean
+是否是对象
+
+## isString(arg: any)： boolean
+是否是对象
+
+## isHTMLElement(arg: any)： boolean
+是否是html元素
+
+## isEqual(value, other)： boolean
+支持任何类型对比
+```
+var object = { 'a': 1 };
+var other = { 'a': 1 };
+ 
+isEqual(object, other);
+// => true
+ 
+object === other;
+// => false
+
+
+isEqual(1, 1) => true
+isEqual('1', '1') => true
+isEqual([1], [1]) => true
+
+```

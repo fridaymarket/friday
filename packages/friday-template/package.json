@@ -1,0 +1,14 @@
+{
+	"name": "friday-cra-template-library",
+	"version": "0.0.1",
+	"license": "MIT",
+	"scripts": {
+		"tsc": "tsc -b --watch"
+	},
+	"main": "template.json",
+	"files": [
+		"template",
+		"template.json"
+	],
+	"gitHead": "9ec1eb2357e95dd921d8365240dc5ca1c99ace86"
+}

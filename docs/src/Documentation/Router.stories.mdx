@@ -1,0 +1,64 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Documentation/Friday Router" />
+
+# Router Api 
+
+Router默认输出react-router-dom的所有方法。
+
+如下：
+
+- Router 
+- Route
+- Switch
+- useHistory
+- useHistory
+- useParams
+- ...
+
+`@friday/router`提供了部分基于router的hook
+
+## useRouter()
+
+useRouter 封装了router常用的几个hooks，返回值如下：
+```css dark
+{
+  // url 中的params
+  query,
+  match,
+  location,
+  // 重定向函数
+  history
+}
+```
+
+## <code>useScrollTop()</code>
+
+history 改变时，自动到顶部
+
+## `ConditionRouter` 条件路由
+
+`@friday/router`提供了验证路由，根据条件选择对应渲染元素，在微服务应用中，可以用来选择不同登陆页
+
+```css dark
+
+import { DevelopmentLogin, inMicroservice } from '@friday/micro'
+import { ConditionRouter } from '@friday/router'
+
+<Router history={history}>
+	<Switch>
+    <Route path='/' exact component={Home} />
+        // condition() 为true，路由有效
+        <ConditionRouter 
+          path='/login'
+          condition={() => {
+              return !inMicroservice()
+          }}
+          component={unInMicroservice} 
+        />
+	</Switch>
+</Router>
+
+```
+
+

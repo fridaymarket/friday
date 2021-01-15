@@ -1,0 +1,21 @@
+{
+	"name": "friday-immer",
+	"version": "0.0.1",
+	"main": "lib/index.js",
+	"types": "lib/index.d.ts",
+	"license": "MIT",
+	"scripts": {
+		"tsc": "tsc -b --watch"
+	},
+	"dependencies": {
+		"immer": "5.3.6",
+		"use-immer": "^0.4.0"
+	},
+	"peerDependencies": {
+		"react": "^16.13.1"
+	},
+	"files": [
+		"lib"
+	],
+	"gitHead": "9ec1eb2357e95dd921d8365240dc5ca1c99ace86"
+}
