@@ -1,28 +1,51 @@
 
 # Welcome to Friday
+Friday目的是作为基础服务的聚合平台。聚合一系列基础服务及管理部分核心依赖。
 
-Friday 目的是作为基础服务的聚合平台。 优化开发体验，聚合一系列基础服务及管理部分核心依赖。
+## Features
+- API快速生成、基于Axios、SWR两种数据流调度方式，彻底抛弃redux
+- 微服务支持，一键开启微服务
+- 中间件机制, 抽象出中间件，让业务更加清晰
+- 基于配置管理router，支持统一管理路由和组件路由两种方式
+- 快速生成Friday脚手架，降低调研脚手架时间成本
 
-Friday 有以下特性：
+## Quick Start
+--- 
+```
 
-- 基于配置管理router及sentry等插件
-- API快速生成、基于axios、useRequest两种数据流调度方式
-- 微服务支持
-- 中间件机制 
-- 常用hooks、helper库
-- 核心依赖统一管理
-- 快速生成Friday脚手架
-- more...
+# 由于目前cra4.03版本对tsconfig.json的限制导致新建模版中断，目前暂时使用4.0.0版本
 
-friday 彻底抛弃了redux数据流方案，转向`react hooks`数据流方式，同时在非react场景下，支持了异步分发器`dispatchAsync`
+npx create-react-app --scripts-version 4.0.0-next.64 [project-name] --template friday-library
 
-为了持续扩展，Friday 拆分为多个包，包之间相互解构，由以下包构成：
+cd [project-name]
 
-- `friday-core`  - 核心包提供friday配置等能力
-- `friday-router`  - 提供router管理能力
-- `friday-async`  - async数据流管理模块
-- `friday-helpers` - 常用工具库
-- `friday/immer`  -  immer库
-- `friday/template` - friday 项目生成模版
+yarn start
+
+# 几秒钟后，你会看到以下输出： 
+
+Compiled successfully!
+
+You can now view friday-app in the browser.
+
+  Local:            http://localhost:3000
+  On Your Network:  http://192.168.7.35:3000
+
+Note that the development build is not optimized.
+To create a production build, use yarn build.
+
+```
+
+## Documentation
+
+- [friday-async]](https://www.runoob.com)
+- [friday-helper]
+- [friday-immer]
+- [friday-async]
+- [friday-async]
+
+
+
+
+
 
 
