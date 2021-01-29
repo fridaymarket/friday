@@ -14,10 +14,10 @@ import Friday from 'friday-core'
 import configurations from 'src/configurations'
 
 const app = new Friday({
-	onInjectConfigBefore() {},
-    onInjectConfigAfter() {},
-    onInjectRouterAfter(configuration) {},
-    onStarted(configuration) {}
+  onInjectConfigBefore() {},
+  onInjectConfigAfter() {},
+  onInjectRouterAfter(configuration) {},
+  onStarted(configuration) {}
 })
 
 // 注入配置
@@ -43,14 +43,14 @@ import { IConfiguration } from 'friday-core'
 
 
 const whiteHosts = [
-	'localhost:3000'
+  'localhost:3000'
 ]
 
 const configuration: IConfiguration = {
-	whiteHosts,
-	publicUrl: {
-		BASE_API_URL: 'http://127.0.0.1:3000/api',
-	}
+  whiteHosts,
+  publicUrl: {
+	BASE_API_URL: 'http://127.0.0.1:3000/api',
+  }
 }
 
 export default configuration
@@ -63,8 +63,8 @@ import configuration_dev from './configuration.dev'
 import configuration_pro from './configuration.pro'
 
 const configurations = [
-	configuration_dev,
-	configuration_pro,
+  configuration_dev,
+  configuration_pro,
 ]
 
 export default configurations
@@ -78,8 +78,8 @@ export default configurations
 import { GlobalState_middleware } from 'friday-core'
 
 export const { middleware: global_middleware, useGlobalContext } = GlobalState_middleware({ 
-	userInfo: {} as IUserInfo,
-	globalLoading: false
+  userInfo: {} as IUserInfo,
+  globalLoading: false
 })
 
 export default global_middleware
@@ -94,10 +94,10 @@ tips:我们可以通过中间件来管理`friday-async`的全局配置。
 ```
 # 开启站点监测，将分发当前环境的配置
 const app = new Friday({
-	onStarted(configuration) {
-		const { sentry } = configuration
-		sentry && sentryLoader(configuration)
-	}
+  onStarted(configuration) {
+	const { sentry } = configuration
+	sentry && sentryLoader(configuration)
+  }
 })
 ```
 
@@ -105,7 +105,7 @@ const app = new Friday({
 `friday-core` 提供了基于`qiankun`微服务的生命周期钩子，你可以暴露出去，将friday注册到其他微服务平台内
 
 ```
-// 微服务中的slave 需要添加该文件在entry 入口上方，用来添加静态资源地址
+# 微服务中的slave 需要添加该文件在entry 入口上方，用来添加静态资源地址
 import 'friday-micro/lib/public-path'
 
 const lifecycle = app.start('#root')

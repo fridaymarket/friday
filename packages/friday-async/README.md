@@ -212,11 +212,9 @@ import { Button } from 'Antd'
 const getList = createGetApi<{id: number}, {id: number, name: string}[]>({url: '/list'})
 
 const App = () => {
-
     const { list, onLoadMore } = useRequest(getList(params), {
         loadMore: true
     })
-
     return (
         <div>
             {list}
