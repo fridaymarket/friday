@@ -18,7 +18,9 @@ yarn add friday-async --save
 
 ## friday-async的理念
 --- 
-设计`friday-async`的原因是，在以往`redux`库下的`react`应用，`redux`所承担的可能是一个全局状态管理，一个单向数据流，但是在某些应用下，我们未必需要管理大量的全局状态和需要一个管理状态和视图的工具。很多时候我们使用`redux`只需要它的异步请求。在`react hooks`到来之后，我们尝试放弃所谓的单向数据流，借鉴`swr`的思想来封装一个请求器。让状态和视图管理更加简单，耦合更松散，也避免大量的重复工作和样板代码，
+在以往`redux`库下的`react`应用，`redux`所承担的可能是一个全局状态管理，一个单向数据流，但是在某些应用下，我们未必需要管理大量的全局状态和需要一个管理状态和视图的工具。
+
+很多时候我们使用`redux`只需要它的异步请求。在`react hooks`到来之后，我们尝试放弃单向数据流，因为它带来的更多大量的重复工作和样板代码，所以我们借鉴`swr`的思想来封装一个请求器。让状态和视图管理更加简单，耦合更松散。
 
 
 ## 使用friday-async 创建一个api
@@ -26,17 +28,17 @@ yarn add friday-async --save
 `friday-async`提供`createGetApi createPostApi`来生成一个api配置。
 
 ```
-import {createGetApi } from 'friday-async'
+import { createGetApi } from 'friday-async'
 
 interface RequestParams {
-	id: number
+  id: number
 }
 interface ResponseData {
-	id: number
+  id: number
 }
 
 const getUserInfo = createGetApi<RequestParams,ResponseData>({
-	url: '/userInfo'
+  url: '/userInfo'
 })
 
 ```

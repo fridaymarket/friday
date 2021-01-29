@@ -36,12 +36,12 @@ To create a production build, use yarn build.
 ```
 
 ## Documentation
-
-- [friday-async]](https://www.runoob.com)
-- [friday-helper]
-- [friday-immer]
-- [friday-async]
-- [friday-async]
+* [friday-core](https://github.com/fridaymarket/friday/blob/main/packages/friday-core/README.md) 核心模块
+* [friday-async](https://github.com/fridaymarket/friday/blob/main/packages/friday-async/README.md) 数据流模块
+* [friday-helper]() 工具库(todo..)
+* [friday-micro]() 微服务模块(todo..)
+* [friday-template] cli模块(todo..)
+* [friday-micro-webpack-plugin]() webpack配置(todo..)
 
 
 
