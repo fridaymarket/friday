@@ -3,7 +3,7 @@ import { renderHook, act } from '@testing-library/react-hooks'
 import { middlewareService } from '../index'
 import GlobalState_middleware from './globalState.middleware'
 
-test('GlobalState_middleware', () => {
+it('GlobalState_middleware', () => {
 	const App = ({ children }) => <div>{children}</div>
 
 	const configuration = {
