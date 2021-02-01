@@ -1,6 +1,6 @@
 {
 	"name": "friday-async",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"main": "lib/index.js",
 	"types": "lib/index.d.ts",
 	"license": "MIT",
@@ -10,8 +10,8 @@
 	},
 	"dependencies": {
 		"axios": "^0.19.2",
-		"friday-core": "^0.0.1",
-		"friday-helpers": "^0.0.1",
+		"friday-core": "^0.0.2",
+		"friday-helpers": "^0.0.2",
 		"invariant": "^2.2.4",
 		"swr": "^0.3.8",
 		"warning": "^4.0.3"

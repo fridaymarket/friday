@@ -1,6 +1,6 @@
 {
 	"name": "friday-helpers",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"main": "lib/index.js",
 	"module": "lib/index.js",
 	"types": "lib/index.d.ts",
@@ -9,7 +9,7 @@
 		"tsc": "tsc -b --watch"
 	},
 	"dependencies": {
-		"friday-immer": "^0.0.1",
+		"friday-immer": "^0.0.2",
 		"invariant": "^2.2.4",
 		"is-plain-object": "^3.0.1",
 		"lodash.debounce": "^4.0.8",

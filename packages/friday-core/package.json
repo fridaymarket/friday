@@ -1,6 +1,6 @@
 {
 	"name": "friday-core",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"main": "lib/index.js",
 	"types": "lib/index.d.ts",
 	"license": "MIT",
@@ -11,9 +11,9 @@
 	"dependencies": {
 		"@types/warning": "^3.0.0",
 		"compose-function": "^3.0.3",
-		"friday-helpers": "^0.0.1",
-		"friday-immer": "^0.0.1",
-		"friday-router": "^0.0.1",
+		"friday-helpers": "^0.0.2",
+		"friday-immer": "^0.0.2",
+		"friday-router": "^0.0.2",
 		"invariant": "^2.2.4",
 		"qiankun": "^2.0.16",
 		"warning": "^4.0.3"
