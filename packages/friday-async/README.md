@@ -52,12 +52,8 @@ const APP = () => {
     <div>{dataArray.map(i => i)}</div>
   )
 }
-
 // 应用在async下
 const APP = () => {
-  // 当参数改变，useRequest会自动监测并重新fetch
-  const { dataArray } = useRequest(getUserInfo({ id: 123 }))
-
   const fetcher = async () => {
     const { dataArray, error } = await dispatchAsync(getUserInfo({id: 123}))
   }
@@ -92,7 +88,7 @@ export type ApiConfig<Params = any, Data = any> = AxiosRequestConfig & {
 
 `useRequest`通常作为在hooks场景下的请求器，而`dispatchAsync`在任何js场景下都可以使用，更多的时候，`useRequest`作为`get`请求器，`dispatchAsync`作为`post`请求器。
 
-#### useRequest (api请求器)
+#### useRequest(service, config): BaseResult| PaginationResult| LoadMoreResult
 
 `useRequest`使用于`React.FC`场景下，`useRequest`基于`swr`，所以它属于一个`get`请求器。 `useRequest`只接收createGetApi生成的api 生成的api。
 
@@ -270,11 +266,8 @@ const App = () => {
 
 ```
 
-### dispatchAsync
-
-dispatchAsync同时支持get|post service，返回BaseResult
-
-`dispatchAsync` 返回一个promise
+### dispatchAsync(service): Promise<BaseResult>
+`dispatchAsync`同时支持`get|post service`，返回`BaseResult`
 
 > 使用dispatchAsync发起一个post/get请求
 

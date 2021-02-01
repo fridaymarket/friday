@@ -9,7 +9,6 @@ export const axiosConifg = {
 	headers: {
 		Accept: 'application/json;charset=utf-8',
 		'Content-Type': 'application/json;charset=utf-8',
-		'Y-Language': ''
 	}
 }
 
@@ -18,8 +17,6 @@ export const axiosInstance = httpAxios(axiosConifg, {
 		return { ...config, headers: { ...config.headers, token: '222' } }
 	},
 	responseErrorHooks(error) {
-		const status = error.response.status
-		console.log(error, 'error')
 		return Promise.reject(error)
 	}
 })
