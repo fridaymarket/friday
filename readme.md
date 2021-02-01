@@ -13,12 +13,11 @@ Friday让状态和视图管理更加简单，聚合一系列基础能力，让re
 
 ```bash
 # 由于目前cra4.03版本对tsconfig.json的限制导致新建模版中断，目前暂时使用4.0.0版本
+& npx create-react-app --scripts-version 4.0.0-next.64 [project-name] --template friday-library
 
-npx create-react-app --scripts-version 4.0.0-next.64 [project-name] --template friday-library
+& cd [project-name]
 
-cd [project-name]
-
-yarn start
+& yarn start
 
 # 几秒钟后，你会看到以下输出： 
 

@@ -118,7 +118,93 @@ export const unmount = lifecycle.unmount
 
 ```
 
+### friday-core Api
+
+#### app = Friday(opts)
+
+创建应用，返回 Friday 实例
+opts包含:
+
+- `onInjectConfigBefore()` 调用`injectConfig`之前执行
+- `onInjectConfigAfter(configurations)` 调用`injectConfig`之后执行, `configurations`为当前匹配的config
+- `onInjectRouterAfter(configurations)` 调用`injectRouters`之后执行, `configurations`为当前匹配的`config`
+- `onStarted(config)` 调用`start`之后执行, `config`为当前匹配的`config`
 
 
 
+#### app.injectConfigurations(configurations: IConfiguration[])
+
+配置项目`configurations`, `whiteHosts`中为匹配目标，多个`configuration`被匹配，将取第一个
+```js
+interface IConfiguration {
+    whiteHosts: string[]
+    publicUrl: {
+        [x: string]: any
+    }
+    router?: {
+        baseName: string
+    },
+    sentry?: boolean
+}
+```
+
+#### configResult = useConfiguration() or getConfiguration()
+
+`configResult` 与注入的`configuration`有所不同，多了两个属性:
+
+```js
+interface IResponseConfiguration extends IConfiguration {
+    // 传入router.baseName后，暴露的history
+    history: History
+    // 当前执行环境
+    NODE_ENV: string
+}
+```
+`friday-core`支持不同方式获取`configuration` `useConfiguration` 在`react`组件内使用，而`getConfiguration()`可以在非`react`组件内使用
+
+
+#### app.use(middleware: IMiddleware)
+
+`friday`支持中间件，通过中间件结构部分业务，目前`friday`提供了部分封装好的中间件
+
+```js
+
+import { GlobalState_middleware } from 'friday-core'
+
+const {middleware, useGlobalContext } = GlobalState_middleware({userInfo: { name: 'friday' }})
+
+app.use(middleware)
+
+```
+
+#### app.injectRouters(Router: React.FC)
+
+配置项目的组件入口，`Router`如下：
+
+```js
+const App = ({ history }) => {
+  return (
+    <Router history={history}>
+      <Switch>
+        <Route path='/' component={Home} />
+      </Switch>
+    </Router>
+  )
+}
+
+export default App
+
+app.injectRouters(App)
+
+```
+#### microLsifecycle= app.start(container: string)
+
+启动项目,`container`为一个DOM元素的`ID`
+
+`microLsifecycle` 为项目的微服务暴露函数，在微服务的子应用应该将其暴露出来，包含以下函数。
+
+- bootstrap
+- mount
+- unmount
+- render
 
