@@ -1,6 +1,6 @@
 
 # Welcome to Friday
-Friday目的是作为基础服务的聚合平台。聚合一系列基础服务及管理部分核心依赖。
+Friday让状态和视图管理更加简单，聚合一系列基础能力，让react应用更松散。
 
 ## Features
 - API快速生成、基于Axios、SWR两种数据流调度方式，彻底抛弃redux
@@ -12,7 +12,7 @@ Friday目的是作为基础服务的聚合平台。聚合一系列基础服务�
 ## Quick Start
 
 ```bash
-// 由于目前cra4.03版本对tsconfig.json的限制导致新建模版中断，目前暂时使用4.0.0版本
+# 由于目前cra4.03版本对tsconfig.json的限制导致新建模版中断，目前暂时使用4.0.0版本
 
 npx create-react-app --scripts-version 4.0.0-next.64 [project-name] --template friday-library
 
@@ -35,12 +35,19 @@ To create a production build, use yarn build.
 ```
 
 ## Documentation
-* [friday-core](https://github.com/fridaymarket/friday/blob/main/packages/friday-core/README.md) 核心模块
-* [friday-async](https://github.com/fridaymarket/friday/blob/main/packages/friday-async/README.md) 数据流模块
-* [friday-helper] 工具库(todo..)
-* [friday-micro] 微服务模块(todo..)
-* [friday-template] cli模块(todo..)
-* [friday-micro-webpack-plugin] webpack配置(todo..)
+* [friday-core](https://github.com/fridaymarket/friday/blob/main/packages/friday-core/README.md) 
+> `friday-core`是friday的纽带，提供微服务、应用配置、应用视图结偶、中间件等能力。
+
+
+* [friday-async](https://github.com/fridaymarket/friday/blob/main/packages/friday-async/README.md) 
+> `friday-async`作为`friday`的数据流管理方式，抛弃了redux数据流管理方式，全面拥抱hooks生态, 同时还支持纯函数的async能力，简化应用复杂度之下，大大提升研发效率。
+
+* [friday-micro](https://github.com/fridaymarket/friday/blob/main/packages/friday-micro/README.md) 
+> `friday-micro` 提供微服务的扩展能力
+
+* [friday-template](https://github.com/fridaymarket/friday/blob/main/packages/friday-template/README.md)
+
+> `friday-template` 提供快速创建`friday`应用的能力
 
 
 

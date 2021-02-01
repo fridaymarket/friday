@@ -87,7 +87,7 @@ export const { middleware: global_middleware, useGlobalContext } = GlobalState_m
 export default global_middleware
 
 ```
-上面的中间件提供了管理全局变量的能力，我们可以自定义中间件，来让业务结偶。
+上面的中间件提供了管理全局变量的能力，我们可以自定义中间件，来让业务。
 
 tips: 我们可以通过中间件来管理`friday-async`的全局配置。
 

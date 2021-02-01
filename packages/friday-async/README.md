@@ -23,33 +23,74 @@ $ yarn add friday-async --save
 
 
 
-## 使用friday-async 创建一个api
+## 创建并使用一个api
 
 `friday-async` 提供 `createGetApi | createPostApi` 来生成一个api配置
 
 `createGetApi | createPostApi` 生成的`api`可以同时给`useRequest | dispatchAsync`使用，做到一次生成，随地使用，同时能自动推导输入输出的类型定义，开发重构有更多的保障
 
 ```javascript
-
-import { createGetApi } from 'friday-async'
+import { createGetApi, useRequest, dispatchAsync } from 'friday-async'
 
 interface RequestParams {
   id: number
 }
 interface ResponseData {
   id: number
+  name: string
 }
 
-const getUserInfo = createGetApi<RequestParams,ResponseData>({
+const getUserInfo = createGetApi<RequestParams,ResponseData[]>({
   url: '/userInfo'
 })
 
+// 应用在react hook中
+const APP = () => {
+  // 当参数改变，useRequest会自动监测并重新fetch
+  const { dataArray } = useRequest(getUserInfo({ id: 123 }))
+  return (
+    <div>{dataArray.map(i => i)}</div>
+  )
+}
+
+// 应用在async下
+const APP = () => {
+  // 当参数改变，useRequest会自动监测并重新fetch
+  const { dataArray } = useRequest(getUserInfo({ id: 123 }))
+
+  const fetcher = async () => {
+    const { dataArray, error } = await dispatchAsync(getUserInfo({id: 123}))
+  }
+  return (
+    <div onClick={fetcher}>获取数据</div>
+  )
+}
 ```
 
 ## API 
-`useRequest`为在hooks场景下的请求器，而`dispatchAsync`在任何js场景下都可以使用，更多的时候，`useRequest`作为`get`请求器，
-`dispatchAsync`作为`post`请求器
+#### createGetApi| createPostApi
+`createGetApi|createPostApi`接受一个axios配置作为参数
+```javascript
 
+const createGetApi: <Params = any, Data = any>(apiConfig: ApiConfig) => (params: Params) => Service<Params, Data>
+
+export type ApiConfig<Params = any, Data = any> = AxiosRequestConfig & {
+	url: string
+	method?: Method
+	params?: Params
+	data?: Params
+	_response?: Data
+	[x: string]: any
+}
+```
+`createGetApi | createPostApi`接收`Params`和`Data`作为入参和返回的数据推导对象，能在`useRequest`和`dispatchAsync`自动推导。
+
+`createGetApi | createPostApi`返回一个包含axios配置函数，在使用时传入的参数(`params or data `)将和定义时的配置（`apiConfig`）进行合并一起推送给`useRequest`或`dispatchAsync`进行数据拉取。
+
+在`useRequest`的场景下，`useRequest`会监测`params`参数的改变，`params`改变后将会重新进行拉取数据，并`update`react组件。  
+
+
+`useRequest`通常作为在hooks场景下的请求器，而`dispatchAsync`在任何js场景下都可以使用，更多的时候，`useRequest`作为`get`请求器，`dispatchAsync`作为`post`请求器。
 
 #### useRequest (api请求器)
 
