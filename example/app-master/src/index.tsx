@@ -1,7 +1,6 @@
 import Friday from 'friday-core'
 
-// 如果是微服务中的slave 需要添加该文件在entry 入口上方
-// import 'friday-micro/lib/public-path'
+import micro from 'friday-micro'
 
 import configurations from 'src/configurations'
 
@@ -34,7 +33,16 @@ app.injectRouters(require('./App').default)
 // 启动器
 app.start('#root')
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
+// 发现服务
+micro.registerMicroApps([
+    {
+        name: 'saas-salve',
+        entry: '//localhost:3001',
+        container: '#micro-layout',
+        activeRule: '/app/micro1',
+    },
+])
+
+micro.start()
+
 serviceWorker.unregister()

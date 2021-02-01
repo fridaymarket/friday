@@ -2,15 +2,9 @@
 	"name": "root",
 	"private": true,
 	"workspaces": [
-		"packages/*",
-		"example/*",
-		"docs"
+		"packages/*"
 	],
 	"scripts": {
-		"example": "npm-run-all --parallel start:*",
-		"example:master": "yarn workspace cra-friday-master start",
-		"example:slave": "yarn workspace cra-friday-slave start",
-		"example:slave2": "yarn workspace cra-friday-slave2 start",
 		"dev": "lerna exec --scope friday-core yarn watch --stream",
 		"test": "jest --coverage",
 		"test:watch": "jest --runInBand --coverage --watch --verbose false --detectOpenHandles",

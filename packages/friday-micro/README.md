@@ -15,6 +15,22 @@ $ yarn add friday-micro --save
 ```
 
 `friday-micro`可以脱离`friday`框架单独使用
+## example 
+```bash
+# run master 
+& cd example/app-master/
+
+yarn 
+
+yarn start 
+
+# run slave 
+& cd example/app-slave/
+
+yarn 
+
+yarn start 
+```
 
 ## 配置一个微服务
 #### master 
@@ -44,7 +60,7 @@ slave 只需要将服务接口暴露出来即可。webpack配置`friday-template
 ```js
 import Friday from 'friday-core'
 // 微服务中的slave 需要添加该文件在entry 入口上方，用来添加静态资源地址
-import '@friday/micro/lib/public-path'
+import 'friday-micro/lib/public-path'
 
 const lifecycle = app.start('#root')
 
@@ -67,7 +83,7 @@ const {
   devServerCorsOrHeader, 
   OverrideMicroOutPut, 
   addEntryAttribute  
-} = require('@friday/micro-webpack-plugin')
+} = require('friday-micro-webpack-plugin')
 
 module.exports = {
   webpack: override(

@@ -13,8 +13,6 @@
 			"react-app-rewired": "^2.1.6",
 			"customize-cra": "^1.0.0",
 			"antd": "latest",
-			"@sentry/browser": "5.15.4",
-			"@sentry/webpack-plugin": "1.10.0",
 			"lodash": "latest",
 			"less": "3.11.1",
 			"less-loader": "^5.0.0",

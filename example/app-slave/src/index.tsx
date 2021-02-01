@@ -1,7 +1,7 @@
 import Friday from 'friday-core'
 
 // 如果是微服务中的slave 需要添加该文件在entry 入口上方
-// import 'friday-micro/lib/public-path'
+import 'friday-micro/lib/public-path'
 
 import configurations from 'src/configurations'
 
@@ -32,7 +32,14 @@ app.use(require('./middleware/axiosMiddleware').default)
 app.injectRouters(require('./App').default)
 
 // 启动器
-app.start('#root')
+const lifecycle = app.start('#root')
+
+export const bootstrap = lifecycle.bootstrap
+
+export const mount = lifecycle.mount
+
+export const unmount = lifecycle.unmount
+
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
