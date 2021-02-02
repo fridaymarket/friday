@@ -64,6 +64,35 @@ const APP = () => {
 ```
 
 ## API 
+
+### AsyncRequestProvider  | request_middleware
+全局配置, `useRequest`和`dispatchAsync`需要一个请求器，需要在全局配置中传入。
+
+提供`request_middleware`中间件在friday应用中通过中间件注入。
+提供`AsyncRequestProvider`在任意react应用中使用
+
+```js
+import { axiosService, httpAxios, AsyncRequestProvider} from 'friday-async'
+
+const axiosInstance = httpAxios({
+    baseURL: 'http://10.2.32.178:3000/mock/40/friday',
+  })
+
+const Index =() => {
+  return (
+    <AsyncRequestProvider value = {{
+      axiosInstance,
+      fetcher: (params) => axiosInstance(params)
+    }}>
+      </APP>
+    </AsyncRequestProvider>
+  )
+}
+
+```
+
+
+
 #### createGetApi| createPostApi
 `createGetApi|createPostApi`接受一个axios配置作为参数
 ```javascript

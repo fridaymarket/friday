@@ -12,14 +12,6 @@ export const createGetApi = <Params = any, Data = any>(apiConfig: ApiConfig) => 
 	}
 }
 
-export const createGetApi2 = <Params = any, Data = any>(apiConfig: ApiConfig) => {
-	return (params: Params): Service<Params, Data> => () => ({
-		...apiConfig,
-		params,
-		method: 'get'
-	})
-}
-
 export const createPostApi = <Params = any, Data = any>(apiConfig: ApiConfig) => {
 	return (data: Params): Service<Params, Data> => {
 		return () => ({
