@@ -1,16 +1,19 @@
+
 import warning from 'warning'
-import { isArray, isObject, isEqual } from 'friday-helpers'
-import { ServiceCombin, ServiceCombinResult, Response, ApiConfig } from './type'
+import invariant from 'invariant'
+import { isArray, isObject, isEqual, isFunction } from 'friday-helpers'
+import { ServiceCombin, ServiceResult, Response, ApiConfig } from './type'
 
 export const genarateServiceConfig = <Params, Data>(
 	service: ServiceCombin<Params, Data>
-): ServiceCombinResult<Params, Data> => {
-	if (typeof service === 'object') {
-		return service
+): ServiceResult<Params, Data> => {
+	if (isObject(service)) {
+		return service as ApiConfig<Params, Data>
 	}
-	if (typeof service === 'function') {
-		return service()
+	if (isFunction(service)) {
+		return (service as Function)()
 	}
+	
 	return null
 }
 
@@ -23,9 +26,10 @@ export const contrastServiceParams = (preService, curService) => {
 }
 
 export const getServiceParams = <Params, Data>(service: ServiceCombin<Params, Data>) => {
+
 	const serviceResult = genarateServiceConfig(service)
 
-	if (serviceResult == null) throw 'service is null'
+	if (serviceResult == null ) throw 'service is null'
 
 	const paramsKey = serviceResult.method == 'get' ? 'params' : 'data'
 
@@ -33,16 +37,21 @@ export const getServiceParams = <Params, Data>(service: ServiceCombin<Params, Da
 }
 
 export const mergeServiceParams = <Params, Data>(
-	preServiceConfig: ServiceCombinResult<Params, Data>,
+	preServiceConfig: ServiceResult<Params, Data>, 
 	mergeParams: object
-): ServiceCombinResult<Params, Data> => {
+): ServiceResult<Params, Data> => {
 	if (!mergeParams) return preServiceConfig
 
-	const method = preServiceConfig?.method
+	if (!preServiceConfig || !preServiceConfig.method) {
+		invariant(false, 'service 不合法')
+	}
+
+	const method = preServiceConfig.method
+	
 	const payloadKey = method == 'get' ? 'params' : 'data'
 
 	return {
-		...(preServiceConfig as ApiConfig<Params, Data>),
+		...preServiceConfig as ApiConfig<Params, Data>,
 		[payloadKey]: {
 			...preServiceConfig![payloadKey],
 			...mergeParams
@@ -58,14 +67,12 @@ const validator = <T>(axiosResponse: Response<T>, rule, defaultVal) => {
 	return axiosResponse
 }
 
-export const getDisasterRecoveryData = <Data>(
-	axiosResponse: Response<Data> | undefined,
-	isBlob = false
-) => {
+export const getDisasterRecoveryData = <Data>(axiosResponse: Response<Data> | undefined, isBlob = false) => {
+
 	if (
 		axiosResponse !== undefined &&
-		!isArray(axiosResponse?.data) &&
-		!isObject(axiosResponse?.data) &&
+		/* istanbul ignore next */
+		(!isArray(axiosResponse?.data) && !isObject(axiosResponse?.data)) && 
 		!isBlob
 	) {
 		warning(false, '接口返回格式错误, data没返回，或者不是array | object')
@@ -75,10 +82,34 @@ export const getDisasterRecoveryData = <Data>(
 	const responseArray = validator(axiosResponse!, 'Array', []) as Response<Data[]>
 
 	return {
-		responseBlob: isBlob ? axiosResponse : null,
+		responseBlob: isBlob ? axiosResponse: null,
 		responseArray,
 		responseJson,
 		dataArray: responseArray.data,
-		dataJson: responseJson.data
+		dataJson: responseJson.data,
 	}
 }
+
+
+export declare type fetcherFn<Data> = ((...args: any) => Data | Promise<Data>) | null;
+
+export const fetcherWarpper = (fetcher) => {
+
+	if (!fetcher) return undefined
+
+	return <Data>(axiosConfigString): fetcherFn<Data> => {
+		let axiosConfig
+		try {
+			axiosConfig = JSON.parse(axiosConfigString)
+
+		} catch (error) {
+			axiosConfig = new Error(error)
+		}
+
+		if (axiosConfig instanceof Error) {
+			invariant(false, '[fetcher parse] axiosConfig parse error')
+		}
+		return fetcher(axiosConfig) as fetcherFn<Data>
+
+	}
+}	
