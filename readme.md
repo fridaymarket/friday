@@ -35,11 +35,11 @@ To create a production build, use yarn build.
 
 ## Documentation
 * [friday-core](https://github.com/fridaymarket/friday/blob/main/packages/friday-core/README.md) 
-> `friday-core`是friday的纽带，提供微服务、应用配置、应用视图结偶、中间件等能力。
+> friday的纽带，提供微服务、应用配置、应用视图结偶、中间件等能力。
 
 
 * [friday-async](https://github.com/fridaymarket/friday/blob/main/packages/friday-async/README.md) 
-> `friday-async`作为`friday`的数据流管理方式，抛弃了redux数据流管理方式，全面拥抱hooks生态, 同时还支持纯函数的async能力，简化应用复杂度之下，大大提升研发效率。
+> 作为`friday`的数据流管理方式，抛弃了redux数据流管理方式，全面拥抱hooks生态, 同时还支持纯函数的async能力，简化应用复杂度之下，大大提升研发效率。
 
 * [friday-micro](https://github.com/fridaymarket/friday/blob/main/packages/friday-micro/README.md) 
 > `friday-micro` 提供微服务的扩展能力

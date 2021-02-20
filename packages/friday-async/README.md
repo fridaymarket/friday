@@ -391,6 +391,6 @@ const deleteController = async () => {
 }
 ```
 
-tips: 
+Tips: 
 
 - 当Api不需要参数时，传入一个`void`即可： `createPostApi<void>()`

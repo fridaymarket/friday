@@ -5166,19 +5166,19 @@ fresh@0.5.2:
   resolved "https://registry.npmjs.org/fresh/-/fresh-0.5.2.tgz#3d8cadd90d976569fa835ab1f8e4b23a105605a7"
   integrity sha1-PYyt2Q2XZWn6g1qx+OSyOhBWBac=
 
-friday-async@0.0.2:
-  version "0.0.2"
-  resolved "https://registry.npmjs.org/friday-async/-/friday-async-0.0.2.tgz#09bb4922b24f5215ba527387cba8cd5f65a9cd75"
-  integrity sha512-v9bTFdfOwCevGVlT16ZcQqnETQuBUrArAz2ZeQUX4u66S1MOzTben97KSlkREc5KR1KnjBwV7jdh9yf2fEmdNg==
+friday-async@^0.0.3:
+  version "0.0.3"
+  resolved "http://registry.npm.yoyi.com.cn/friday-async/-/friday-async-0.0.3.tgz#31bc61f1f76cd1416ddbdb22b5697e0336b7a4ca"
+  integrity sha1-Mbxh8fds0UFt29sitWl+Aza3pMo=
   dependencies:
     axios "^0.19.2"
     friday-core "^0.0.2"
     friday-helpers "^0.0.2"
     invariant "^2.2.4"
-    swr "^0.3.8"
+    swr "^0.4.2"
     warning "^4.0.3"
 
-friday-core@0.0.2, friday-core@^0.0.2:
+friday-core@^0.0.2:
   version "0.0.2"
   resolved "https://registry.npmjs.org/friday-core/-/friday-core-0.0.2.tgz#9743558f0afaadba031f2c30157b48c39e4beec0"
   integrity sha512-pHsohL2EwGaGkuAXmzFx+T+EYX+0H836GUDAWzkgXUNwZOZJZKHNzzt/DrI8Tydm7602xqkONlrBv/2629UdKQ==
@@ -5212,14 +5212,14 @@ friday-immer@^0.0.2:
     immer "5.3.6"
     use-immer "^0.4.0"
 
-friday-micro-webpack-plugin@0.0.2:
+friday-micro-webpack-plugin@^0.0.2:
   version "0.0.2"
-  resolved "https://registry.npmjs.org/friday-micro-webpack-plugin/-/friday-micro-webpack-plugin-0.0.2.tgz#032492f2adfb6c1bcc09042f1d92bd7033b21a00"
-  integrity sha512-Jdq2AHn06qemblr6sMunTC8o1m2axyd9nGKgxDz6tRvmqL/tW+3ws7CkRiDlSlDDyRrNCovZ8ZxcbxlVfsKzow==
+  resolved "http://registry.npm.yoyi.com.cn/friday-micro-webpack-plugin/-/friday-micro-webpack-plugin-0.0.2.tgz#032492f2adfb6c1bcc09042f1d92bd7033b21a00"
+  integrity sha1-AySS8q37bBvMCQQvHZK9cDOyGgA=
   dependencies:
     script-ext-html-webpack-plugin "^2.1.4"
 
-friday-router@0.0.2, friday-router@^0.0.2:
+friday-router@^0.0.2:
   version "0.0.2"
   resolved "https://registry.npmjs.org/friday-router/-/friday-router-0.0.2.tgz#2bc5ab219a9509310f446c77349b7a50bc8be07d"
   integrity sha512-iw83mEesv81ASzlsZ1OPJbX9US0wswCZEUnFzmYb4jN44XA74JlDKv6WlDnyBF0my26tkEug1E1qGuV9dCqYvw==
@@ -11038,10 +11038,10 @@ svgo@^1.0.0, svgo@^1.2.2:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
-swr@^0.3.8:
-  version "0.3.11"
-  resolved "https://registry.npmjs.org/swr/-/swr-0.3.11.tgz#f7f50ed26c06afea4249482cec504768a2272664"
-  integrity sha512-ya30LuRGK2R7eDlttnb7tU5EmJYJ+N6ytIOM2j0Hqs0qauJcDjVLDOGy7KmFeH5ivOwLHalFaIyYl2K+SGa7HQ==
+swr@^0.4.2:
+  version "0.4.2"
+  resolved "http://registry.npm.yoyi.com.cn/swr/-/swr-0.4.2.tgz#4a9ed5e9948088af145c79d716d294cb99712a29"
+  integrity sha1-Sp7V6ZSAiK8UXHnXFtKUy5lxKik=
   dependencies:
     dequal "2.0.2"
 
