@@ -11,7 +11,7 @@ function useManalRequest<Params, Data>(
 	service: ManualService<Params, Data>,
 	config: ManualConfigInterface<Data>
 ): ManualResult<Params, Data> {
-	
+
 	const pausedRef = React.useRef(true)
 
 	const rerender = React.useState<any>(null)[1]
@@ -19,10 +19,10 @@ function useManalRequest<Params, Data>(
 	const paramsRef = React.useRef<any>({})
 
 	const dynamicParams = React.useRef<any>({ _: new Date().getTime()})
-	
+
 	const nextService = React.useMemo(() => {
 		// service is HeadService, will be return LastService
-		return (service as HeadService)(paramsRef.current, {_ : new Date().getTime()})
+		return (service as HeadService)(paramsRef.current, {_ : dynamicParams.current})
 	}, [
 		dynamicParams,
 		paramsRef.current
