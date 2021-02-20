@@ -1,6 +1,9 @@
+
 import { AxiosInstance } from 'axios'
 
+
 export default class AxiosService {
+
 	private aixosInstance!: AxiosInstance
 
 	public setAixosInstance = (axiosInstance: AxiosInstance) => {

@@ -13,7 +13,7 @@
 		"friday-core": "^0.0.2",
 		"friday-helpers": "^0.0.2",
 		"invariant": "^2.2.4",
-		"swr": "^0.3.8",
+		"swr": "^0.4.2",
 		"warning": "^4.0.3"
 	},
 	"peerDependencies": {

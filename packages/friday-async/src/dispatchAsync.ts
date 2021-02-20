@@ -1,7 +1,9 @@
+
 import invariant from 'invariant'
 import { axiosService } from './axios'
 import { isFunction, isArray, isObject } from 'friday-helpers'
-import { BaseResult, Service } from './useRequest/type'
+
+import { BaseResult, LastService } from './useRequest/type'
 import { getDisasterRecoveryData } from './useRequest/utils'
 
 export interface DispatchAsyncResult<Params, Data> extends BaseResult<Params, Data> {
@@ -23,14 +25,15 @@ const responseSchemaValidate = (response, isBlob) => {
 }
 
 export const dispatchAsync = async <Params = any, Data = any>(
-	service: Service<Params, Data>
+	service: LastService<Params, Data>
 ): Promise<DispatchAsyncResult<Params, Data>> => {
+
 	const axiosInstance = axiosService.getAixosInstance()
 
 	invariant(axiosInstance, '[dispatchAsync] axiosInstance not found')
 
 	invariant(
-		isObject(service) || isFunction(service),
+		(isObject(service) || isFunction(service)),
 		'[dispatchAsync]  service not found, service must be object or function'
 	)
 
@@ -51,6 +54,7 @@ export const dispatchAsync = async <Params = any, Data = any>(
 			return responseSchemaValidate(result, isBlob)
 		})
 		.then((result) => {
+			
 			// istanbul ignore next
 			const _data = getDisasterRecoveryData<Data>(result, isBlob)
 

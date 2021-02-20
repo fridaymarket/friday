@@ -1,26 +1,34 @@
-import { ApiConfig, Service } from './useRequest/type'
+import { ApiConfig, HeadService, LastService } from './useRequest/type'
 
-export const createGetApi = <Params = any, Data = any>(apiConfig: ApiConfig) => {
-	return (params: Params): Service<Params, Data> => (_params = {}) => {
-		const nextParams = { ...params, ..._params }
+export const createGetApi = <Params = any, Data = any>(
+	apiConfig: ApiConfig
+): HeadService<Params, Data> => {
+	return (headParams: Params, otherSet = {}): LastService<Params, Data> => (lastParams = {} as Params) => {
 
+		const nextParams = { ...headParams, ...lastParams }
+		
 		return {
 			...apiConfig,
 			params: nextParams,
-			method: 'get'
+			method: 'get',
+			...otherSet
 		}
 	}
 }
 
-export const createPostApi = <Params = any, Data = any>(apiConfig: ApiConfig) => {
-	return (data: Params): Service<Params, Data> => {
-		return () => ({
+export const createPostApi = <Params = any, Data = any>(
+	apiConfig: ApiConfig
+): HeadService<Params, Data> => {
+	return (headParams: Params, otherSet = {}): LastService<Params, Data> => (lastParams = {} as Params) => {
+
+		const nextData = { ...headParams, ...lastParams }
+		
+		return {
 			...apiConfig,
-			data,
-			method: 'post'
-		})
+			data: nextData,
+			method: 'post',
+			...otherSet
+		}
 	}
 }
-
-export const createGet = createGetApi
-export const createPost = createPostApi
+	

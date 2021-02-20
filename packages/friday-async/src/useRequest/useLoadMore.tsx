@@ -1,13 +1,19 @@
+
 import React from 'react'
 import usePagination from './usePagination'
 
-import { ServiceCombin, LoadMoreConfigInterface, LoadMoreResult } from './type'
+import {
+	ServiceCombin,
+	LoadMoreConfigInterface,
+	LoadMoreResult,
+} from './type'
 
 function useLoadMore<Params, Data>(
 	service: ServiceCombin<Params, Data>,
 	config: LoadMoreConfigInterface<Data>
 ): LoadMoreResult<Params, Data> {
-	const { dataArray, params, ...response } = usePagination(service, config)
+
+	const { dataArray, params,  ...response } = usePagination(service, config)
 
 	const [list, setList] = React.useState<Data[]>([])
 
@@ -27,4 +33,6 @@ function useLoadMore<Params, Data>(
 	} as LoadMoreResult<Params, Data>
 }
 
+
 export default useLoadMore
+
