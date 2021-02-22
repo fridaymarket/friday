@@ -21,8 +21,6 @@ export const axiosInstance = httpAxios(axiosConifg, {
 	}
 })
 
-const axios_middleware = request_middleware(axiosInstance, {
-	fetcher: (params) => axiosInstance(params) as any
-})
+const axios_middleware = request_middleware({axiosInstance})
 
 export default axios_middleware

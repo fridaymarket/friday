@@ -2,19 +2,19 @@
 import React from 'react'
 import useAsync from './useAsync'
 import { genarateServiceConfig, mergeServiceParams, contrastServiceParams } from './utils'
-import { 
-	ServiceCombin, 
-	PaginationConfigInterface, 
-	PaginationResult, 
-	PaginationParams, 
-	PaginationResponse 
+import {
+	ServiceCombin,
+	PaginationConfigInterface,
+	PaginationResult,
+	PaginationParams,
+	PaginationResponse
 } from './type'
 
 const PAGINATION_LIST = ['10', '20', '50', '100', '200', '500']
 
 function usePagination<Params, Data>(
 	service: ServiceCombin<Params, Data>,
-	config: PaginationConfigInterface<Data>
+	config: PaginationConfigInterface<Params, Data>
 ): PaginationResult<Params, Data> {
 
 	const { defaultPageSize = 10 } = config
@@ -41,13 +41,13 @@ function usePagination<Params, Data>(
 	const serviceConfig = genarateServiceConfig(serviceRef.current)
 	// merger pagination to service params
 	const nextServiceConfig = mergeServiceParams(serviceConfig, paginationRef.current)
-	
+
 	type _PaginationParams = PaginationParams<Params>
-	
-	const { responseArray, ...response } = useAsync<_PaginationParams, Data>(nextServiceConfig, config)
+
+	const { responseArray, ...response } = useAsync<_PaginationParams, Data>(nextServiceConfig, config as PaginationConfigInterface)
 
 	const onLoadMore = () => {
-		if (!service || !response.params) return 
+		if (!service || !response.params) return
 		paginationRef.current.page++
 		rerender({})
 	}
@@ -76,8 +76,8 @@ function usePagination<Params, Data>(
 			}
 		}
 	}, [
-		(responseArray as PaginationResponse<Data[]>).total, 
-		paginationRef.current, 
+		(responseArray as PaginationResponse<Data[]>).total,
+		paginationRef.current,
 		rerender,
 		response.isValidating,
 		response.dataArray
