@@ -69,19 +69,18 @@ const APP = () => {
 以下文档我们统一将`createGetApi 、 createPostApi`称为`service`，我们对`service`的定义做一个共识：
 
 ```js
-
 export const createGetApi = <Params = any, Data = any>(
 	apiConfig: ApiConfig
 ): HeadService<Params, Data> => {
-	return (headParams: Params, otherSet = {}): LastService<Params, Data> => (lastParams = {} as Params) => {
-		const nextParams = { ...headParams, ...lastParams }
-		return {
-			...apiConfig,
-			params: nextParams,
-			method: 'get',
-			...otherSet
-		}
+  return (headParams: Params, otherSet = {}): LastService<Params, Data> => (lastParams = {} as Params) => {
+	const nextParams = { ...headParams, ...lastParams }
+	return {
+	  ...apiConfig,
+	  params: nextParams,
+	  method: 'get',
+	  ...otherSet
 	}
+  }
 }
 
 ```
@@ -106,7 +105,7 @@ export const createGetApi = <Params = any, Data = any>(
 import { httpAxios, AsyncRequestProvider } from 'friday-async'
 
 const axiosInstance = httpAxios({
-	baseURL: 'http://10.2.32.178:3000/mock/40/friday',
+  baseURL: 'http://10.2.32.178:3000/mock/40/friday',
 })
 
 <AsyncRequestProvider value={{ axiosInstance }}>
@@ -120,7 +119,7 @@ const axiosInstance = httpAxios({
 import { httpAxios, request_middleware } from 'friday-async'
 
 export const axiosInstance = httpAxios({
-	baseURL: publicUrl.baseUrl,
+  baseURL: publicUrl.baseUrl,
 })
 
 const axios_middleware = request_middleware({axiosInstance})
@@ -317,17 +316,16 @@ import { Button } from 'Antd'
 const getList = createGetApi<{id: number}, {id: number, name: string}[]>({url: '/list'})
 
 const App = () => {
+  const { list, onLoadMore } = useRequest(getList(params), {
+	loadMore: true
+  })
 
-	const { list, onLoadMore } = useRequest(getList(params), {
-		loadMore: true
-	})
-
-	return (
-		<div>
-			{list}
-			<Button onClick={onLoadMore}>onLoadMore</Button>
-		</div>
-	)
+  return (
+	<div>
+	  {list}
+	  <Button onClick={onLoadMore}>onLoadMore</Button>
+	</div>
+  )
 }
 ```
 `config`设置了 `loadMore`之后,返回值为`LoadMoreResult`:
@@ -356,16 +354,14 @@ import { Button } from 'Antd'
 const getList = createGetApi<{id: number}, {id: number, name: string}[]>({url: '/list'})
 
 const App = () => {
-
-	const { run } = useRequest(getList, {
-		manual: true
-	})
-
-	return (
-		<div>
-			<Button onClick={() => run({id: 1})}>fetch data</Button>
-		</div>
-	)
+  const { run } = useRequest(getList, {
+	manual: true
+  })
+  return (
+	<div>
+	  <Button onClick={() => run({id: 1})}>fetch data</Button>
+	</div>
+  )
 }
 ```
 `config`设置了 `manual`之后,返回值为`ManualResult`:
@@ -387,7 +383,7 @@ import { createPostApi, dispatchAsync } from 'friday-async'
 const deleteUser = createPostApi<{id: number}, {id: number, name: string}>({url: '/delete/user'})
 
 const deleteController = async () => {
-	const responst = await dispatchAsync(deleteUser({id: 2}))
+  const responst = await dispatchAsync(deleteUser({id: 2}))
 }
 ```
 
