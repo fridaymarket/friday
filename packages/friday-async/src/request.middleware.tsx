@@ -13,12 +13,12 @@ const request_middleware = (requestConfigs: RequestMiddleware) => {
 		...requestConfigs,
 		fetcher: (params) => axiosInstance(params)
 	}
-	
+
 	return ({ App, configuration }) => {
 		return {
 			App(props) {
 				return (
-					<AsyncConfigContext.Provider value={requestConfigs}>
+					<AsyncConfigContext.Provider value={swrConfig as any}>
 						<SWRConfig value={swrConfig}>
 							<App {...props} />
 						</SWRConfig>

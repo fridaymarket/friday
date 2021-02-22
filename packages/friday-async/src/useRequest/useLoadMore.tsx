@@ -10,7 +10,7 @@ import {
 
 function useLoadMore<Params, Data>(
 	service: ServiceCombin<Params, Data>,
-	config: LoadMoreConfigInterface<Data>
+	config: LoadMoreConfigInterface<Params, Data>
 ): LoadMoreResult<Params, Data> {
 
 	const { dataArray, params,  ...response } = usePagination(service, config)

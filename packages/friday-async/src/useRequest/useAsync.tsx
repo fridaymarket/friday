@@ -3,13 +3,14 @@ import React from 'react'
 import invariant from 'invariant'
 import useSWR from 'swr'
 import { AsyncConfigContext } from './context'
-import { 
+import {
+	getParams,
 	fetcherWarpper,
 	genarateServiceConfig,
 	getDisasterRecoveryData,
 } from './utils'
-import { 
-	ConfigInterface,
+import {
+	BaseConfigInterface,
 	BaseResult,
 	Response,
 	ServiceCombin
@@ -22,27 +23,9 @@ const DEFAULT_CONFIG = {
 
 function useAsync<Params = any, Data = any>(
 	service: ServiceCombin<Params, Data>,
-	config: ConfigInterface<Data>
+	config: BaseConfigInterface<Params, Data>
 ): BaseResult<Params, Data>;
 function useAsync<Params = any, Data = any>(service: ServiceCombin<Params, Data>, config) {
-
-	const globalConfig = React.useContext(AsyncConfigContext)
-
-	const requestConfig = Object.assign(
-		{}, 
-		DEFAULT_CONFIG, 
-		globalConfig as any,
-		config || {}
-	)
-
-	//传入参数fetcher 保证与swr 一致
-	if (requestConfig.fetcher) {
-		requestConfig['fetcher'] = fetcherWarpper(requestConfig.fetcher)
-	}
-
-	const configRef = React.useRef(requestConfig)
-
-	configRef.current = requestConfig
 
 	const serviceConfig = genarateServiceConfig(service)
 
@@ -50,46 +33,68 @@ function useAsync<Params = any, Data = any>(service: ServiceCombin<Params, Data>
 
 	serviceRef.current = serviceConfig
 
-	const isPaused = configRef.current.isPaused
+	const globalConfig = React.useContext(AsyncConfigContext)
+
+	const requestConfig = Object.assign(
+		{},
+		DEFAULT_CONFIG,
+		globalConfig as any,
+		config || {}
+	)
+
+	invariant(
+		requestConfig.fetcher,
+		'[fetcher] fetcher is a required configuration item, can be passed in through request_middleware or AsyncRequestProvider'
+	)
+
+	const overRewriteConfig = {
+		...requestConfig,
+		fetcher: fetcherWarpper(requestConfig.fetcher),
+		onSuccess: (data, key, config) => {
+			if (requestConfig?.onSuccess) {
+				const disasterRecoveryData = getDisasterRecoveryData<Data>(data)
+				requestConfig.onSuccess({
+					key,
+					data,
+					config,
+					params: getParams(serviceRef.current),
+					...disasterRecoveryData
+				})
+			}
+		}
+	}
+
+	const configRef = React.useRef(overRewriteConfig)
+
+	configRef.current = overRewriteConfig
 
 	const serializeKey = React.useMemo(() => {
-		
 		if (!serviceRef.current) return null
-
 		try {
 			return JSON.stringify(serviceRef.current)
 		} catch (error) {
 			return new Error(error)
 		}
-	}, [ serviceRef.current, isPaused ])
+	}, [
+		serviceRef.current,
+		configRef.current.isPaused
+	])
 
 	if (serializeKey instanceof Error) {
 		invariant(false, '[serializeKey] service must be object')
 	}
-	
+
 	const response = useSWR<Response<Data>>(serializeKey, configRef.current)
-
-	const getParams = React.useMemo(() => {
-
-		if (!serviceRef.current) return undefined
-
-		return (
-			serviceRef.current?.params || 
-			serviceRef.current?.data || 
-			{}
-		) as Params
-
-	}, [serviceRef.current])
 
 	const disasterRecoveryData = React.useMemo(() => {
 		return getDisasterRecoveryData<Data>(response?.data)
 	 }, [response.data])
-	
+
 	return {
 		...response,
 		...disasterRecoveryData,
-		params: getParams,
+		params: getParams(serviceRef.current),
 	}
 }
 
-export default useAsync 
+export default useAsync

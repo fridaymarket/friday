@@ -13,7 +13,7 @@ export const genarateServiceConfig = <Params, Data>(
 	if (isFunction(service)) {
 		return (service as Function)()
 	}
-	
+
 	return null
 }
 
@@ -37,7 +37,7 @@ export const getServiceParams = <Params, Data>(service: ServiceCombin<Params, Da
 }
 
 export const mergeServiceParams = <Params, Data>(
-	preServiceConfig: ServiceResult<Params, Data>, 
+	preServiceConfig: ServiceResult<Params, Data>,
 	mergeParams: object
 ): ServiceResult<Params, Data> => {
 	if (!mergeParams) return preServiceConfig
@@ -47,7 +47,7 @@ export const mergeServiceParams = <Params, Data>(
 	}
 
 	const method = preServiceConfig.method
-	
+
 	const payloadKey = method == 'get' ? 'params' : 'data'
 
 	return {
@@ -72,7 +72,7 @@ export const getDisasterRecoveryData = <Data>(axiosResponse: Response<Data> | un
 	if (
 		axiosResponse !== undefined &&
 		/* istanbul ignore next */
-		(!isArray(axiosResponse?.data) && !isObject(axiosResponse?.data)) && 
+		(!isArray(axiosResponse?.data) && !isObject(axiosResponse?.data)) &&
 		!isBlob
 	) {
 		warning(false, '接口返回格式错误, data没返回，或者不是array | object')
@@ -112,4 +112,14 @@ export const fetcherWarpper = (fetcher) => {
 		return fetcher(axiosConfig) as fetcherFn<Data>
 
 	}
-}	
+}
+
+export const getParams = <Params>(objectService) => {
+	if (!objectService) return undefined
+
+	return (
+		objectService?.params ||
+		objectService?.data ||
+		{}
+	) as Params
+}

@@ -16,11 +16,11 @@ const AsyncRequestProvider = (props) => {
 	}
 
 	return (
-		<AsyncConfigContext.Provider value={value}>
+		<AsyncConfigContext.Provider value={swrConfig}>
 			<SWRConfig value={swrConfig}>
 				{children}
 			</SWRConfig>
-		</AsyncConfigContext.Provider>	
+		</AsyncConfigContext.Provider>
 	)
 }
 
