@@ -4,12 +4,12 @@ import useAsync from './useAsync'
 import usePagination from './usePagination'
 import useLoadMore from './useLoadMore'
 import useManalRequest from './useManalAsync'
-import { 
+import {
 	ServiceCombin,
 	ManualService,
-	ConfigInterface,
+	BaseConfigInterface,
 	ManualConfigInterface,
-	PaginationConfigInterface, 
+	PaginationConfigInterface,
 	LoadMoreConfigInterface,
 	BaseResult,
 	ManualResult,
@@ -17,25 +17,26 @@ import {
 	LoadMoreResult
 } from './type'
 
+
 function useRequest<Params = any, Data = any>(
 	service: ServiceCombin<Params, Data>,
-	config?: LoadMoreConfigInterface<Data>
+	config?: BaseConfigInterface<Params, Data>
+): BaseResult<Params, Data>
+
+function useRequest<Params = any, Data = any>(
+	service: ServiceCombin<Params, Data>,
+	config?: LoadMoreConfigInterface<Params, Data>
 ): LoadMoreResult<Params, Data>;
 
 function useRequest<Params = any, Data = any>(
 	service: ServiceCombin<Params, Data>,
-	config?: PaginationConfigInterface<Data>
+	config?: PaginationConfigInterface<Params, Data>
 ): PaginationResult<Params, Data>;
 
 function useRequest<Params = any, Data = any>(
-	service: ServiceCombin<Params, Data>,
-	config?: ConfigInterface<Data>
-): BaseResult<Params, Data> 
-
-function useRequest<Params = any, Data = any>(
 	service: ManualService<Params, Data>,
-	config: ManualConfigInterface<Data>
-): ManualResult<Params, Data> 
+	config: ManualConfigInterface<Params, Data>
+): ManualResult<Params, Data>
 
 function useRequest<Params = any, Data = any>(
 	service: any,
@@ -61,7 +62,7 @@ function useRequest<Params = any, Data = any>(
 
 	if (paginated) {
 		return usePagination<Params, Data>(service, config)
-	} 
+	}
 
 	if (loadMore) {
 		return useLoadMore<Params, Data>(service, config)

@@ -1,6 +1,6 @@
 
-import { 
-	ConfigInterface as swrConfigInterface,  
+import {
+	ConfigInterface as swrConfigInterface,
 	responseInterface as swrResponseInterface
 } from 'swr'
 
@@ -8,32 +8,43 @@ import { AxiosRequestConfig, Method, AxiosResponse } from 'axios'
 
 export type { AxiosResponse }
 
-export type swrConfig<Data> = swrConfigInterface<Response<Data>>
+export type ExtendedField<Params = any, Data = any> = {
+	params: Params | undefined
+	dataArray: Data[]
+	dataJson: Data
+	responseBlob: any
+	responseArray: Response<Data[]>
+	responseJson: Response<Data>
+}
 
-export interface ConfigInterface<Data = any> extends swrConfig<Data> {
-	// defaultParams?: object
-	// 给bi开的后门，让bi 的get api可以使用userequest
-	// 支持手动之后， biReuqest只留着做兼容旧版本
-	biReuqest?: boolean
-	formatResult?: (res) => any
+type OnSuccessRes<Params = any, Data = any, Config = any> = ExtendedField<Params, Data> & {
+	key: string,
+	config: Config
+}
+
+export type ConfigInterface<Data = any> = Omit<swrConfigInterface<Response<Data>>, 'onSuccess'>
+
+export interface BaseConfigInterface<Params = any, Data = any> extends ConfigInterface<Data> {
+	onSuccess?: (res: OnSuccessRes<Params, Data, BaseConfigInterface<Params, Data>>) => void;
 }
 
 type OmitIsPaused<Data> = Omit<ConfigInterface<Data>, 'isPaused'>
 
-export interface ManualConfigInterface<Data = any> extends OmitIsPaused<Data> {
+export interface ManualConfigInterface<Params = any, Data = any> extends OmitIsPaused<Data> {
 	manual: boolean
+	onSuccess?: (res: OnSuccessRes<Params, Data, ManualConfigInterface<Params, Data>>) => void
 }
 
-
-export interface PaginationConfigInterface<Data = any> extends ConfigInterface<Data> {
+export interface PaginationConfigInterface<Params = any, Data = any> extends ConfigInterface<Data> {
 	defaultPageSize?: number
 	paginated?: boolean
+	onSuccess?: (res: OnSuccessRes<Params, Data, PaginationConfigInterface<Params, Data>>) => void
 }
 
-
-export interface LoadMoreConfigInterface<Data = any> extends ConfigInterface<Data> {
+export interface LoadMoreConfigInterface<Params = any, Data = any> extends ConfigInterface<Data> {
 	defaultPageSize?: number
 	loadMore?: boolean
+	onSuccess?: (res: OnSuccessRes<Params, Data, LoadMoreConfigInterface<Params, Data>>) => void
 }
 
 export type PaginationParams<Params> = Params & {
@@ -43,15 +54,8 @@ export type PaginationParams<Params> = Params & {
 
 export type swrResponse<Data> = swrResponseInterface<Response<Data>, any>
 
-export interface BaseResult<Params = any, Data = any> extends swrResponse<Data> { 
-	params: Params | undefined
-	dataArray: Data[]
-	dataJson: Data
-	responseBlob: any
-	responseArray: Response<Data[]>
-	responseJson: Response<Data>
-	
-}
+
+export type BaseResult<Params = any, Data = any> = swrResponse<Data> & ExtendedField<Params, Data>
 
 export interface ManualResult<Params = any, Data = any> extends BaseResult<Params, Data> {
 	run: (params: Params) => void

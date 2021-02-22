@@ -1,4 +1,5 @@
 import React from 'react'
+import invariant from 'invariant'
 import useAsync from './useAsync'
 import {
 	HeadService,
@@ -18,10 +19,12 @@ function useManalRequest<Params, Data>(
 
 	const paramsRef = React.useRef<any>({})
 
+	// Dynamically change the key according to the timing of run
 	const dynamicParams = React.useRef<any>({ _: new Date().getTime()})
 
 	const nextService = React.useMemo(() => {
 		// service is HeadService, will be return LastService
+
 		return (service as HeadService)(paramsRef.current, {_ : dynamicParams.current})
 	}, [
 		dynamicParams,
@@ -32,7 +35,10 @@ function useManalRequest<Params, Data>(
 		pausedRef.current = true
 	}, [])
 
-	// config, 不应该动态修改
+	if ((config as any).isPaused) {
+		invariant(false, 'manual model cannot be set isPaused')
+	}
+
 	const nextConfig: any = {
 		...config,
 		onSuccess: (...res) => {
@@ -53,7 +59,6 @@ function useManalRequest<Params, Data>(
 	const run = (params) => {
 		pausedRef.current = false
 		paramsRef.current = params
-		// 更改key，触发请求。
 		dynamicParams.current = new Date().getTime()
 		rerender({})
 	}
