@@ -279,9 +279,9 @@ const { pagination, tableProps } = useRequest(getList(params), {
 })
 
 <Table 
-	{...tableProps}
-	或者只使用分页
-	pagination={pagination}
+  {...tableProps}
+  或者只使用分页
+  pagination={pagination}
 >
 ```
 我们可以看到，`config`设置了 `paginated`, 则返回值为`PaginationResult`
@@ -317,14 +317,14 @@ const getList = createGetApi<{id: number}, {id: number, name: string}[]>({url: '
 
 const App = () => {
   const { list, onLoadMore } = useRequest(getList(params), {
-	loadMore: true
+    loadMore: true
   })
 
   return (
-	<div>
+    <div>
 	  {list}
 	  <Button onClick={onLoadMore}>onLoadMore</Button>
-	</div>
+    </div>
   )
 }
 ```
