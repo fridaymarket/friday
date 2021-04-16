@@ -12,6 +12,7 @@ install:
   - lerna bootstrap
 script:
   - yarn add codecov -g -W
+  - yarn build
   - yarn test
   - codecov -f coverage/*.json
 
