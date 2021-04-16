@@ -7,9 +7,9 @@ node_js:
   - 10.17.0
 install:
   - yarn global add codecov -W
-  - lerna bootstrap
+  - yarn
 script:
-  - yarn build:tsPackage
+  - yarn build
   - yarn test
   - codecov -f coverage/*.json
 after_success:
