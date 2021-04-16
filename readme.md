@@ -3,6 +3,7 @@
 
 [![codecov](https://codecov.io/gh/fridaymarket/friday/branch/main/graph/badge.svg?token=WG595IXI67)](https://codecov.io/gh/fridaymarket/friday)
 [![Build Status](https://travis-ci.com/fridaymarket/friday.svg?branch=main)](https://travis-ci.com/fridaymarket/friday)
+![npm](https://img.shields.io/npm/v/friday-async)
 
 Friday makes state and view management easier, aggregates a series of basic capabilities, and makes react applications looser.
 
