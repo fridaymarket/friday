@@ -9,8 +9,8 @@ install:
   - yarn global add codecov -W
   - yarn
 script:
-  - yarn build
-  - yarn test
+  # - yarn build
+  # - yarn test
   - codecov -f coverage/*.json
 after_success:
   - bash <(curl -s https://codecov.io/bash)
