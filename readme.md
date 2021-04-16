@@ -110,14 +110,11 @@ import React from 'react'
 import { Switch, Route, Router } from 'friday-router'
 import { createGetApi, useRequest } from 'friday-async'
 
-const getUser = createGetApi<
-{id: number}, 
-{  name: string, token: string}
->({ url: '/getUser' })
+const getUser = createGetApi<{id: number},{name: string, token: string}>({ url: '/getUser' })
 
 const Home = () => {
 
-  const { dataJson } = useRequest(getUser)
+  const { dataJson } = useRequest(getUser({id: 1}))
 
   return (
     <div>{dataJson.name}</div>
@@ -125,13 +122,13 @@ const Home = () => {
 }
 
 const App = ({ history }) => {
-	return (
-		<Router history={history}>
-			<Switch>
-				<Route path="/" component={Home} />
-			</Switch>
-		</Router>
-	)
+  return (
+    <Router history={history}>
+      <Switch>
+        <Route path="/" component={Home} />
+      </Switch>
+    </Router>
+  )
 }
 
 export default App
