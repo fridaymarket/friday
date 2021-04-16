@@ -1,5 +1,6 @@
 language: node_js
 cache:
+  yarn: true
   directories:
     - node_modules
 node_js:
@@ -9,7 +10,8 @@ before_install:
   - curl -o- -L https://yarnpkg.com/install.sh | bash -s
   - export PATH="$HOME/.yarn/bin:$PATH"
 install:
-  - yarn add codecov -g -W
+  - yarn global add lerna
+  - yarn global add codecov -W
   - lerna bootstrap
 script:
   - yarn build:tsPackage
