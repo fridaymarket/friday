@@ -3,7 +3,7 @@ cache:
   directories:
     - node_modules
 node_js:
-  - 10
+  - 10.17.0
 install:
   - yarn
 script:
