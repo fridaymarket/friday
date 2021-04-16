@@ -8,11 +8,11 @@
 Friday makes state and view management easier, aggregates a series of basic capabilities, and makes react applications looser.
 
 ## Features
-- API generation ability， Abandon redux, based on SWR
-- Support Micro , based on qiankun
+- API generation ability, Abandon Redux, Based On SWR
+- Support Micro, Based On QianKun
 - Middleware System
 - Set up Friday app by running one command.
-- more
+- more...
 
 ## Getting started
 
@@ -45,24 +45,24 @@ The configuration module of the project, which configuration to use depends on w
 The configuration can be obtained through  `useConfiguration` or `getConfiguration`
 
 ```js
-configurations.ts 
+// configurations.ts 
 
 import { IConfiguration } from 'friday-core'
 
 const { protocol } = document.location
 
 const configuration_dev: IConfiguration = {
-	whiteHosts: ['localhost:3000'],
-	publicUrl: {
-		baseUrl: 'http://localhost:3000/mock/8/test'
-	}
+  whiteHosts: ['localhost:3000'],
+  publicUrl: {
+    baseUrl: 'http://localhost:3000/mock/8/test'
+  }
 }
 
 const configuration_Pro: IConfiguration = {
-	whiteHosts: ['localhost:3001'],
-	publicUrl: {
-		baseUrl: 'http://localhost:3001/mock/8/test'
-	}
+  whiteHosts: ['localhost:3001'],
+  publicUrl: {
+    baseUrl: 'http://localhost:3001/mock/8/test'
+  }
 }
 
 const configurations = [
@@ -76,7 +76,7 @@ export default configuration
 Middleware module, which can abstract business, such as: internationalization, etc.
 
 ```js
-middlewares.ts
+// middlewares.ts
 
 import { getConfiguration, GlobalState_middleware } from 'friday-core'
 
@@ -90,13 +90,13 @@ const axios_middleware = request_middleware({
 })
 // global middleware
 const { middleware: global_middleware, useGlobalContext } = GlobalState_middleware({ 
-	userInfo: {} as IUserInfo,
-	globalLoading: false
+  userInfo: {} as IUserInfo,
+  globalLoading: false
 })
 
 const middlewares = [
-	axios_middleware,
-	global_middleware,
+  axios_middleware,
+  global_middleware,
 ]
 export default middlewares
 ```
@@ -104,7 +104,8 @@ export default middlewares
 The `App.ts` shows friday's business capabilities, examples of api creation to use
 
 ```js
-App.ts
+// App.ts
+
 import React from 'react'
 import { Switch, Route, Router } from 'friday-router'
 import { createGetApi, useRequest } from 'friday-async'
@@ -136,11 +137,10 @@ const App = ({ history }) => {
 export default App
 ```
 
-
 The injection of `configurations`、`middlewares` and `App` is orderly because they will depend on each other
 
 ```js
-index.ts
+// index.ts
 
 import Friday from 'friday-core'
 import configurations from './configurations'
