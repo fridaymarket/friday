@@ -154,6 +154,53 @@ app.start('#root')
 
 ```
 
+If you need microservice support. 
+
+```js 
+
+// master project. 
+
+import micro from 'friday-micro'
+
+micro.registerMicroApps([{
+  // slave name
+  name: 'slave-project', // app name registered
+  entry: '//localhost:3000',
+  container: '#subapp-viewport',
+  activeRule: '/react16',
+}])
+// start micro project
+micro.start()
+
+```
+First, you need to register the slave service in the master application
+
+```js 
+
+// slave project. 
+
+import Friday from 'friday-core'
+// The slave in the microservice needs to add this file above the entry entry to add static resource addresses
+import 'friday-micro/lib/public-path'
+
+const lifecycle = app.start('#root')
+
+export const bootstrap = lifecycle.bootstrap
+
+export const mount = lifecycle.mount
+
+export const unmount = lifecycle.unmount
+
+```
+You only need to expose the microservice interface in the slave。`friday-template` has helped you configure the webpack of microservices
+
+
+
+
+
+
+
+
 ## Documentation
 * [friday-core](https://github.com/fridaymarket/friday/blob/main/packages/friday-core/README.md) 
 > friday core, Provide microservices, application configuration, application view coupling, middleware and other capabilities
