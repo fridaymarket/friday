@@ -7,3 +7,6 @@ export * from './hooks'
 export { default as ChunkLazy } from './ChunkLazy'
 
 export { default as ConditionRouter } from './ConditionRouter'
+
+
+console.log('test')
